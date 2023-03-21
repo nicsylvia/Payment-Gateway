@@ -17,7 +17,7 @@ const UserSchema: Schema<UserDetails> = new Schema({
         trim: true,
         // validate: [isEmail, "Please enter a valid email"],
     },
-    Image:{
+    image:{
         type: String,
     },
     username:{
