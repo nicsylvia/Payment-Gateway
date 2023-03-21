@@ -37,7 +37,7 @@ export const BusinessRegistration = AsyncHandler(async(
 })
 
 // Users Login:
-export const UsersLogin = AsyncHandler(async(
+export const BusinessLogin = AsyncHandler(async(
     req: Request,
     res: Response,
     next: NextFunction
