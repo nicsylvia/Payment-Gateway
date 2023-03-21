@@ -1,7 +1,7 @@
 import express, { Application, Request, Response } from "express";
-import { DBCONNECTION } from "../Config/DB";
+import { DBCONNECTION } from "./Config/DB";
 
-import {EnvironmentVariables} from "../Config/EnvironmentVariables"
+import {EnvironmentVariables} from "./Config/EnvironmentVariables"
 import { AppConfig } from "./app";
 
 const port = EnvironmentVariables.port
