@@ -1,40 +1,38 @@
 import { NextFunction, Request, Response } from "express";
-import UserModels from "../Models/UserModels";
 import { AsyncHandler } from "../Utils/AsyncHandler";
 import Cloud from "../Config/cloudinary";
 import bcrypt from "bcrypt"
 import { AppError, HTTPCODES } from "../Utils/AppError";
+import BusinessModels from "../Models/BusinessModels";
 
 // Users Registration:
-export const UsersRegistration = AsyncHandler(async(
+export const BusinessRegistration = AsyncHandler(async(
     req: any,
     res: Response,
     next: NextFunction
 ) =>{
-    const {name, email, phoneNumber, username, password, confirmPassword, status } = req.body;
+    const {name, email, password, confirmPassword } = req.body;
     
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt)
 
-    const Users = await UserModels.create({
+    const Business = await BusinessModels.create({
         name,
         email,
-        username,
-        phoneNumber: 234 + phoneNumber,
         password: hashedPassword,
         confirmPassword: hashedPassword,
-        status: "User",
+        status: "Business",
     })
 
-    if (Users) {
+    if (Business) {
         next(new AppError({
-            message: "User with this account already exists",
+            message: "Business with this account already exists",
             httpcode: HTTPCODES.FORBIDDEN
         }))
     }
     return res.status(201).json({
-        message: "Successfully created User",
-        data: Users
+        message: "Successfully created Business",
+        data: Business
     })
 })
 
@@ -46,11 +44,11 @@ export const UsersLogin = AsyncHandler(async(
 ) =>{
     const { email, password} = req.body;
 
-    const CheckEmail = await UserModels.findOne({email})
+    const CheckEmail = await BusinessModels.findOne({email})
 
     if (!CheckEmail) {
         next(new AppError({
-            message: "User not Found",
+            message: "Business not Found",
             httpcode: HTTPCODES.NOT_FOUND
         }))
     }
