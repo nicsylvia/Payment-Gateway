@@ -4,7 +4,6 @@ import { AsyncHandler } from "../Utils/AsyncHandler";
 import Cloud from "../Config/cloudinary";
 import bcrypt from "bcrypt"
 import { AppError, HTTPCODES } from "../Utils/AppError";
-import mongoose from "mongoose";
 
 // Users Registration:
 export const UsersRegistration = AsyncHandler(async(
