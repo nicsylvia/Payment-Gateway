@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { AsyncHandler } from "../Utils/AsyncHandler";
 import Cloud from "../Config/cloudinary";
 import bcrypt from "bcrypt"
+import otpgenerator from "otp-generator"
 import { AppError, HTTPCODES } from "../Utils/AppError";
 import BusinessModels from "../Models/BusinessModels";
 
@@ -30,6 +31,7 @@ export const BusinessRegistration = AsyncHandler(async(
         email,
         password: hashedPassword,
         confirmPassword: hashedPassword,
+        BusinessCode: otpgenerator.generate(4, { upperCaseAlphabets: false, specialChars: false, digits: true, lowerCaseAlphabets : false }) ,
         status: "Business",
     })
 

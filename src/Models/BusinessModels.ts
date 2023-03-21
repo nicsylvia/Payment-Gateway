@@ -25,6 +25,10 @@ const BusinessSchema: Schema<BusinessDetails> = new Schema({
         type: String,
         required: [true, "Please confirm your password"]
     },
+    BusinessCode: {
+        type: String,
+        unique: true,
+    },
     status: {
         type: String,
         required: [true, "Please enter your status"],

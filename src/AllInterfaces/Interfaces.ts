@@ -16,6 +16,7 @@ export interface UserDetails {
     email: string;
     password: string;
     confirmPassword: string;
+    BusinessCode: string;
     status: string;
     giftCard: {}[];
   }
