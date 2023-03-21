@@ -1,8 +1,8 @@
 export interface clientDetails {
     name: string;
-    address: string;
-    clientType: string;
     email: string;
+    clientType: string;
+    
     phoneNumber: number;
     password: string;
     notification: []; //pushing the message model inside
