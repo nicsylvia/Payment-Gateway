@@ -43,6 +43,6 @@ const BusinessSchema: Schema<BusinessDetails> = new Schema({
 
 
 
-const BusinessModels = model<BusinessDetails>("Users", BusinessSchema);
+const BusinessModels = model<BusinessDetails>("Businesses", BusinessSchema);
 
 export default BusinessModels;

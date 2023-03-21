@@ -21,9 +21,9 @@ export interface UserDetails {
   }
 
   export interface GiftCardDetails {
+    name: string;
     logo: string;
     uniqueID: string;
-    name: string;
     moneyWorth: number;
     purchased: boolean;
   }
