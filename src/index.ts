@@ -4,7 +4,7 @@ import { DBCONNECTION } from "./Config/DB";
 import {EnvironmentVariables} from "./Config/EnvironmentVariables"
 import { AppConfig } from "./app";
 
-const port = EnvironmentVariables.port
+const port = EnvironmentVariables.PORT
 
 const app: Application = express();
 AppConfig(app)
@@ -18,5 +18,5 @@ app.get("/", (req: Request, res: Response) =>{
 
 app.listen(port, () =>{
     console.log("")
-    console.log("Server is up and running")
+    console.log("Server is up and running on port", port)
 })

@@ -2,7 +2,7 @@ import mongoose, { Schema, model } from "mongoose";
 
 import { UserDetails } from "../AllInterfaces/Interfaces";
 
-// import isEmail from "validator/lib/isEmail";
+import isEmail from "validator/lib/isEmail";
 
 const UserSchema: Schema<UserDetails> = new Schema({
     name: {
@@ -15,7 +15,7 @@ const UserSchema: Schema<UserDetails> = new Schema({
         unique: true,
         lowercase: true,
         trim: true,
-        // validate: [isEmail, "Please enter a valid email"],
+        validate: [isEmail, "Please enter a valid email"],
     },
     image:{
         type: String,

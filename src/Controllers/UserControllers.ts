@@ -3,6 +3,7 @@ import UserModels from "../Models/UserModels";
 import { AsyncHandler } from "../Utils/AsyncHandler";
 import Cloud from "../Config/cloudinary";
 import bcrypt from "bcrypt"
+import crypto from "crypto"
 import { AppError, HTTPCODES } from "../Utils/AppError";
 
 // Users Registration:
@@ -11,27 +12,30 @@ export const UsersRegistration = AsyncHandler(async(
     res: Response,
     next: NextFunction
 ) =>{
-    const {name, email, phoneNumber, username, password, confirmPassword } = req.body;
+    const {name, email, phoneNumber, username, password } = req.body;
     
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt)
+    const salt = await crypto.randomUUID.toString();
+    const hashedPassword = await crypto.pbkdf2Sync
 
-    const Users = await UserModels.create({
-        name,
-        email,
-        username,
-        phoneNumber: 234 + phoneNumber,
-        password: hashedPassword,
-        confirmPassword: hashedPassword,
-        status: "User",
-    })
+    const findEmail = await UserModels.findOne({ email });
 
-    if (Users) {
+    if (findEmail) {
         next(new AppError({
             message: "User with this account already exists",
             httpcode: HTTPCODES.FORBIDDEN
         }))
     }
+
+    const Users = await UserModels.create({
+        name,
+        email,
+        username,
+        phoneNumber: "234" + phoneNumber,
+        password: hashedPassword,
+        confirmPassword: hashedPassword,
+        status: "User",
+    })
+
     return res.status(201).json({
         message: "Successfully created User",
         data: Users
