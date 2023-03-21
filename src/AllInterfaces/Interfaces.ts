@@ -1,23 +1,25 @@
-export interface clientDetails {
+export interface UserDetails {
     name: string;
+    username: string;
     email: string;
-    clientType: string;
-    
     phoneNumber: number;
     password: string;
-    notification: []; //pushing the message model inside
-    message: {}[];
-    paymentLog: {}[];
-    contact_us: {}[];
-    bills: {}[];
+    confirmPassword: string;
+    companyGiftCards: {}[];
+    PurchasedGiftCards: {}[];
   }
   
-  export interface adminDetails {
+  export interface BusinessDetails {
     name: string;
     email: string;
     password: string;
-    message: {}[];
-    notification: [];
-    paymentLog: {}[];
-    bills: {}[];
+    confirmPassword: string;
+    giftCard: {}[];
+  }
+
+  export interface GiftCardDetails {
+    logo: string;
+    uniqueID: string;
+    name: string;
+    moneyWorth: number;
   }
