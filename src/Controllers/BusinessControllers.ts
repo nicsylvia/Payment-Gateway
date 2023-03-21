@@ -12,6 +12,15 @@ export const BusinessRegistration = AsyncHandler(async(
     next: NextFunction
 ) =>{
     const {name, email, password, confirmPassword } = req.body;
+
+    const findEmail = await BusinessModels.findOne({ email });
+
+    if (findEmail) {
+        next(new AppError({
+            message: "Business with this account already exists",
+            httpcode: HTTPCODES.FORBIDDEN
+        }))
+    }
     
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt)
@@ -24,12 +33,6 @@ export const BusinessRegistration = AsyncHandler(async(
         status: "Business",
     })
 
-    if (Business) {
-        next(new AppError({
-            message: "Business with this account already exists",
-            httpcode: HTTPCODES.FORBIDDEN
-        }))
-    }
     return res.status(201).json({
         message: "Successfully created Business",
         data: Business

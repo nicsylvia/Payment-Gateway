@@ -3,7 +3,6 @@ import UserModels from "../Models/UserModels";
 import { AsyncHandler } from "../Utils/AsyncHandler";
 import Cloud from "../Config/cloudinary";
 import bcrypt from "bcrypt"
-import crypto from "crypto"
 import { AppError, HTTPCODES } from "../Utils/AppError";
 
 // Users Registration:
@@ -14,8 +13,8 @@ export const UsersRegistration = AsyncHandler(async(
 ) =>{
     const {name, email, phoneNumber, username, password } = req.body;
     
-    const salt = await crypto.randomUUID.toString();
-    const hashedPassword = await crypto.pbkdf2Sync
+    const salt = await bcrypt.genSalt(10)
+    const hashedPassword = await bcrypt.hash(password, salt)
 
     const findEmail = await UserModels.findOne({ email });
 
