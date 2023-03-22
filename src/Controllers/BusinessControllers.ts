@@ -26,12 +26,14 @@ export const BusinessRegistration = AsyncHandler(async(
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt)
 
+    const codename = name.split("")[0]
+
     const Business = await BusinessModels.create({
         name,
         email,
         password: hashedPassword,
         confirmPassword: hashedPassword,
-        BusinessCode: otpgenerator.generate(4, { upperCaseAlphabets: false, specialChars: false, digits: true, lowerCaseAlphabets : false }) ,
+        BusinessCode: codename + otpgenerator.generate(6, { upperCaseAlphabets: false, specialChars: false, digits: true, lowerCaseAlphabets : false }) ,
         status: "Business",
     })
 
@@ -41,7 +43,7 @@ export const BusinessRegistration = AsyncHandler(async(
     })
 })
 
-// Users Login:
+// Business Login:
 export const BusinessLogin = AsyncHandler(async(
     req: Request,
     res: Response,
