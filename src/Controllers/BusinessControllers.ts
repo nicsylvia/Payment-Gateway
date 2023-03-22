@@ -12,7 +12,7 @@ export const BusinessRegistration = AsyncHandler(async(
     res: Response,
     next: NextFunction
 ) =>{
-    const {name, email, password, confirmPassword } = req.body;
+    const {name, email, password, confirmPassword, phoneNumber } = req.body;
 
     const findEmail = await BusinessModels.findOne({ email });
 
@@ -31,6 +31,7 @@ export const BusinessRegistration = AsyncHandler(async(
     const Business = await BusinessModels.create({
         name,
         email,
+        phoneNumber: 234 + phoneNumber,
         password: hashedPassword,
         confirmPassword: hashedPassword,
         BusinessCode: codename + otpgenerator.generate(10, { upperCaseAlphabets: false, specialChars: false, digits: true, lowerCaseAlphabets : false }) ,

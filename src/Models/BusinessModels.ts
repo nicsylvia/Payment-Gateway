@@ -29,6 +29,10 @@ const BusinessSchema: Schema<BusinessDetails> = new Schema({
         type: String,
         unique: true,
     },
+    phoneNumber:{
+        type: Number,
+        required: [true, "Please enter your Phone number"]
+    },
     status: {
         type: String,
         required: [true, "Please enter your status"],

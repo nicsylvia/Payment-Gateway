@@ -14,6 +14,7 @@ export interface UserDetails {
   export interface BusinessDetails {
     name: string;
     email: string;
+    phoneNumber: number;
     password: string;
     confirmPassword: string;
     BusinessCode: string;
