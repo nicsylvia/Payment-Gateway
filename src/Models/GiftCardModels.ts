@@ -16,11 +16,6 @@ const GiftCardSchema: Schema<GiftCardDetails> = new Schema({
     moneyWorth: {
         type: Number,
         required: [true, "Please enter the money worth of card"]
-    },
-    purchased: {
-        type: String,
-        enum: ["true", "false"],
-        default: "false"
     }
 },
 {

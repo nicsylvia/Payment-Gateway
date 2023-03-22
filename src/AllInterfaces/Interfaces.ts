@@ -26,5 +26,4 @@ export interface UserDetails {
     logo: string;
     uniqueID: string;
     moneyWorth: number;
-    purchased: string;
   }
