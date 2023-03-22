@@ -24,8 +24,8 @@ const Storage = multer.diskStorage({
     }
 });
 
-const GiftCardUploads = multer({
+const BusinessLogo = multer({
     storage: Storage
-}).single("image");
+}).single("logo");
 
-export { GiftCardUploads};
+export { BusinessLogo };

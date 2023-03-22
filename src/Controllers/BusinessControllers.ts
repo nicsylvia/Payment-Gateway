@@ -103,7 +103,7 @@ export const GetSingleBusinessAcount = AsyncHandler(async(
 
 // Update Business Details:
 export const UpdateBusinessLogo = AsyncHandler(async(
-    req: Request,
+    req: any,
     res: Response,
     next: NextFunction
 ) =>{

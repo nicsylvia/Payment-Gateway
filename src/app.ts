@@ -5,6 +5,7 @@ import cors from "cors"
 import morgan from "morgan"
 import UserRouter from "./Routes/UserRoutes";
 import BusinessRouter from "./Routes/BusinessRoutes";
+import GiftCardRoutes from "./Routes/GiftCardRoutes";
 
 export const AppConfig = (app: Application) =>{
     app.use(express.json())
@@ -14,4 +15,5 @@ export const AppConfig = (app: Application) =>{
     // Configuring the routes:
     app.use("/api", UserRouter)
     app.use("/api", BusinessRouter)
+    app.use("/api", GiftCardRoutes)
 }
