@@ -38,7 +38,7 @@ export const BusinessRegistration = AsyncHandler(async(
     })
 
     return res.status(201).json({
-        message: "Successfully created Business",
+        message: "Successfully created Business Account",
         data: Business
     })
 })
@@ -55,7 +55,7 @@ export const BusinessLogin = AsyncHandler(async(
 
     if (!CheckEmail) {
         next(new AppError({
-            message: "Business not Found",
+            message: "Business Account not Found",
             httpcode: HTTPCODES.NOT_FOUND
         }))
     }
@@ -76,4 +76,25 @@ export const BusinessLogin = AsyncHandler(async(
         })
     }
 
+})
+
+// Get single Business Account:
+export const GetSingleBusinessAcount = AsyncHandler(async(
+    req: Request,
+    res: Response,
+    next: NextFunction
+) =>{
+    const SingleBusiness = await BusinessModels.findById(req.params.businessID);
+
+    if (!SingleBusiness) {
+        next(new AppError({
+            message: "Business Account not found",
+            httpcode: HTTPCODES.NOT_FOUND
+        }))
+    }
+
+    return res.status(200).json({
+        message: "Successfully got this business account",
+        data: SingleBusiness
+    })
 })
