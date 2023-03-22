@@ -5,6 +5,7 @@ import bcrypt from "bcrypt"
 import otpgenerator from "otp-generator"
 import { AppError, HTTPCODES } from "../Utils/AppError";
 import BusinessModels from "../Models/BusinessModels";
+import cloud from "../Config/cloudinary";
 
 // Users Registration:
 export const BusinessRegistration = AsyncHandler(async(
@@ -97,5 +98,35 @@ export const GetSingleBusinessAcount = AsyncHandler(async(
     return res.status(200).json({
         message: "Successfully got this business account",
         data: SingleBusiness
+    })
+})
+
+// Update Business Details:
+export const UpdateBusinessLogo = AsyncHandler(async(
+    req: Request,
+    res: Response,
+    next: NextFunction
+) =>{
+
+    const { logo } = req.body;
+
+    const CloudImg = await cloud.uploader?.upload(req?.file!.path);
+
+    const BusinessLogo = await BusinessModels.findByIdAndUpdate(
+        req.params.businessID,
+        {logo: CloudImg.secure_url},
+        {new: true}
+    )
+
+    if (!BusinessLogo) {
+        next(new AppError({
+            message: "An error occured in updating business logo",
+            httpcode: HTTPCODES.INTERNAL_SERVER_ERROR
+        }))
+    }
+
+    return res.status(201).json({
+        message: "Successfully updated the business brand logo",
+        data: BusinessLogo
     })
 })
