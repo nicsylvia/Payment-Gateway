@@ -17,6 +17,14 @@ export const GenerateAGiftCard = AsyncHandler(async(
     const GetBusiness = await BusinessModels.findById(req.params.businessID);
 
     const GiftCard = await GiftCardModels.create({
-        name: GetBusiness?.name
+        name: GetBusiness?.name,
+        BrandLogo: GetBusiness?.logo,
+        uniqueID: GetBusiness?.BusinessCode,
+        moneyWorth,
+    })
+    
+    return res.status(200).json({
+        message: `Gift card for ${GetBusiness?.name} successfully generated`,
+        data: GiftCard
     })
 })
