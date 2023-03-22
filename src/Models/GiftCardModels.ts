@@ -7,7 +7,7 @@ const GiftCardSchema: Schema<GiftCardDetails> = new Schema({
         type: String,
         required: [true, "Please enter your name"]
     },
-    logo: {
+    BrandLogo: {
         type: String,
     },
     uniqueID: {

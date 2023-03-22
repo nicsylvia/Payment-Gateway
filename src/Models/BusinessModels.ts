@@ -17,6 +17,9 @@ const BusinessSchema: Schema<BusinessDetails> = new Schema({
         trim: true,
         validate: [isEmail, "Please enter a valid email"],
     },
+    logo: {
+        type: String,
+    },
     password: {
         type: String,
         required: [true, "Please enter your Password"]

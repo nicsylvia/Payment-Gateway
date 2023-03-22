@@ -14,6 +14,7 @@ export interface UserDetails {
   export interface BusinessDetails {
     name: string;
     email: string;
+    logo: string;
     phoneNumber: number;
     password: string;
     confirmPassword: string;
@@ -24,7 +25,7 @@ export interface UserDetails {
 
   export interface GiftCardDetails {
     name: string;
-    logo: string;
+    BrandLogo: string;
     uniqueID: string;
     moneyWorth: number;
   }
