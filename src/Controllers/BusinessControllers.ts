@@ -33,7 +33,7 @@ export const BusinessRegistration = AsyncHandler(async(
         email,
         password: hashedPassword,
         confirmPassword: hashedPassword,
-        BusinessCode: codename + otpgenerator.generate(4, { upperCaseAlphabets: false, specialChars: false, digits: true, lowerCaseAlphabets : false }) ,
+        BusinessCode: codename + otpgenerator.generate(10, { upperCaseAlphabets: false, specialChars: false, digits: true, lowerCaseAlphabets : false }) ,
         status: "Business",
     })
 
