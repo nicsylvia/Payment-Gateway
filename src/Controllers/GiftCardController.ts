@@ -4,6 +4,7 @@ import Cloud from "../Config/cloudinary";
 import { AppError, HTTPCODES } from "../Utils/AppError";
 import GiftCardModels from "../Models/GiftCardModels";
 import BusinessModels from "../Models/BusinessModels";
+import mongoose from "mongoose";
 
 // Create a gift card:
 export const GenerateAGiftCard = AsyncHandler(async(
@@ -22,8 +23,11 @@ export const GenerateAGiftCard = AsyncHandler(async(
         moneyWorth,
     })
     
+    await GetBusiness?.giftCard?.push(new mongoose.Types.ObjectId)
+    GetBusiness?.save();
+    
     return res.status(200).json({
-        message: `Gift card for ${GetBusiness?.name} successfully generated`,
+        message: `A Gift card for ${GetBusiness?.name} with money worth of ${moneyWorth} successfully generated`,
         data: GiftCard
     })
 })
@@ -34,7 +38,7 @@ export const AllGiftCards = AsyncHandler(async(
     res: Response,
     next: NextFunction
 ) =>{
-    const Giftcards = await GiftCardModels.find();
+    const Giftcards = await GiftCardModels.find().sort({createdAt: -1});
 
     if (!Giftcards) {
         next(new AppError({

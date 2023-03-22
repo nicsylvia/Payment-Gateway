@@ -3,7 +3,7 @@ import { AllGiftCards, BusinessGiftCard, GenerateAGiftCard } from "../Controller
 
 const GiftCardRoutes = express.Router();
 
-GiftCardRoutes.route("generateyourgiftcard/:businessID").post(GenerateAGiftCard)
+GiftCardRoutes.route("/generateyourgiftcard/:businessID").post(GenerateAGiftCard)
 GiftCardRoutes.route("/getallgiftcards").get(AllGiftCards)
 GiftCardRoutes.route("/businessgiftcard/:businessID").get(BusinessGiftCard)
 

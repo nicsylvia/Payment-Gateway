@@ -5,7 +5,6 @@ import { GiftCardDetails } from "../AllInterfaces/Interfaces";
 const GiftCardSchema: Schema<GiftCardDetails> = new Schema({
     name: {
         type: String,
-        required: [true, "Please enter your name"]
     },
     BrandLogo: {
         type: String,
