@@ -1,11 +1,11 @@
 import { NextFunction, Request, Response } from "express";
 import { AsyncHandler } from "../Utils/AsyncHandler";
-import Cloud from "../Config/cloudinary";
+import cloud from "../Config/cloudinary";
 import bcrypt from "bcrypt"
 import otpgenerator from "otp-generator"
 import { AppError, HTTPCODES } from "../Utils/AppError";
 import BusinessModels from "../Models/BusinessModels";
-import cloud from "../Config/cloudinary";
+// import cloud from "../Config/cloudinary";
 
 // Users Registration:
 export const BusinessRegistration = AsyncHandler(async(
@@ -32,7 +32,7 @@ export const BusinessRegistration = AsyncHandler(async(
     const Business = await BusinessModels.create({
         name,
         email,
-        phoneNumber: 234 + phoneNumber,
+        phoneNumber: "+234" + phoneNumber,
         password: hashedPassword,
         confirmPassword: hashedPassword,
         BusinessCode: codename + otpgenerator.generate(10, { upperCaseAlphabets: false, specialChars: false, digits: true, lowerCaseAlphabets : false }) ,
@@ -103,17 +103,18 @@ export const GetSingleBusinessAcount = AsyncHandler(async(
 
 // Update Business Details:
 export const UpdateBusinessLogo = AsyncHandler(async(
-    req: any,
+    req: Request,
     res: Response,
     next: NextFunction
 ) =>{
 
-    const { logo } = req.body;
+    // const { logo } = req.body;
 
     const CloudImg = await cloud.uploader?.upload(req?.file!.path);
+    console.log(CloudImg)
 
     const BusinessLogo = await BusinessModels.findByIdAndUpdate(
-        req.params.businessID,
+        req.params.id,
         {logo: CloudImg.secure_url},
         {new: true}
     )

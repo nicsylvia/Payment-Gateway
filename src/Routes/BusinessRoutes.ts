@@ -8,7 +8,7 @@ const BusinessRouter = express.Router();
 BusinessRouter.route("/registerbusiness").post(BusinessRegistration)
 BusinessRouter.route("/loginbusiness").post(BusinessLogin)
 BusinessRouter.route("/getsinglebusiness/:businessID").get(GetSingleBusinessAcount)
-BusinessRouter.route("/updatebusinesslogo/:businessID").patch(BusinessLogo, UpdateBusinessLogo)
+BusinessRouter.route("/updatebusinesslogo/:id").patch(BusinessLogo, UpdateBusinessLogo)
 
 
 export default BusinessRouter;

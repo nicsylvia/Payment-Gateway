@@ -1,11 +1,15 @@
-import {v2 as cloudinary} from "cloudinary";
+// import {v2 as cloudinary} from "cloudinary"; 
+import Cloud,{v2} from "cloudinary"
+const cloudinary: typeof v2 = Cloud.v2
 
-const cloud =  cloudinary.config({
+
+
+ cloudinary.config({
     cloud_name: "dev-sylvia",
     api_key: "816323284624162",
     api_secret: "1lOIWeMpkvIEeNxUHJ4I9YOS-GA",
     secure: true
 })
 
-export default cloud
+export default cloudinary
 

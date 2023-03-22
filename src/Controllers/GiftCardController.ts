@@ -23,9 +23,9 @@ export const GenerateAGiftCard = AsyncHandler(async(
         moneyWorth,
     })
     
-    await GetBusiness?.giftCard?.push(new mongoose.Types.ObjectId)
+    await GetBusiness?.giftCard?.push(new mongoose.Types.ObjectId(GiftCard?._id))
     GetBusiness?.save();
-    
+
     return res.status(200).json({
         message: `A Gift card for ${GetBusiness?.name} with money worth of ${moneyWorth} successfully generated`,
         data: GiftCard
