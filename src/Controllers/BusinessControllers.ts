@@ -26,14 +26,14 @@ export const BusinessRegistration = AsyncHandler(async(
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt)
 
-    const codename = name.split("")[0]
+    const codename = name.split("")[0] + name.split(" ")[1][0]
 
     const Business = await BusinessModels.create({
         name,
         email,
         password: hashedPassword,
         confirmPassword: hashedPassword,
-        BusinessCode: codename + otpgenerator.generate(6, { upperCaseAlphabets: false, specialChars: false, digits: true, lowerCaseAlphabets : false }) ,
+        BusinessCode: codename + otpgenerator.generate(4, { upperCaseAlphabets: false, specialChars: false, digits: true, lowerCaseAlphabets : false }) ,
         status: "Business",
     })
 
