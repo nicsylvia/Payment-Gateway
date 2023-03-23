@@ -33,6 +33,9 @@ const BusinessSchema: Schema<BusinessDetails> = new Schema({
         type: String,
         unique: true,
     },
+    MoneyBalance: {
+        type: String,
+    },
     phoneNumber:{
         type: Number,
         required: [true, "Please enter your Phone number"],

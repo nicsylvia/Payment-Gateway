@@ -15,6 +15,7 @@ export interface UserDetails {
     name: string;
     email: string;
     logo: string;
+    MoneyBalance: string;
     phoneNumber: number;
     password: string;
     confirmPassword: string;
@@ -30,3 +31,9 @@ export interface UserDetails {
     colour: string;
     moneyWorth: number;
   }
+
+export interface HistoryDetails {
+  message: string;
+  transactionReference: number;
+  transactionType: string
+}
