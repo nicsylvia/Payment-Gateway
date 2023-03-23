@@ -8,6 +8,7 @@ import BusinessModels from "../Models/BusinessModels";
 import HistoryModels from "../Models/HistoryModels";
 import { uuid } from "uuidv4";
 import mongoose from "mongoose";
+import GiftCardModels from "../Models/GiftCardModels";
 
 // Users Registration:
 export const UsersRegistration = AsyncHandler(async(
@@ -115,6 +116,7 @@ export const UserBuyAGiftCard = AsyncHandler(async(
     // To get both single user and business
     const user = await UserModels.findById(req.params.userID);
     const Business = await BusinessModels.findById(req.params.businessID);
+    const giftcard = await GiftCardModels.findById(req.params.giftcardID)
 
     if (!user && !Business) {
         next(new AppError({
@@ -136,7 +138,7 @@ export const UserBuyAGiftCard = AsyncHandler(async(
          await BusinessModels.findByIdAndUpdate(
             req.params.businessID,
             {
-                MoneyBalance: Business?.MoneyBalance + amount,
+                MoneyBalance: Business?.Balance + amount,
             }
         )
         // To generate a receipt for the business and a notification

@@ -19,4 +19,11 @@ app.get("/", (req: Request, res: Response) =>{
 app.listen(port, () =>{
     console.log("")
     console.log("Server is up and running on port", port)
+});
+
+process.on("uncaughtException", (error: Error) =>{
+    console.log("Stop here: uncaughtexpression")
+    console.log(error)
+
+    process.exit(1);
 })
