@@ -123,6 +123,14 @@ export const UserBuyAGiftCard = AsyncHandler(async(
         }))
     }
 
+    // If no gift card from this business:
+    if (!Business?.giftCard) {
+        next(new AppError({
+            message: `${Business?.name} does not have a gift card yet`,
+            httpcode: HTTPCODES.NOT_FOUND
+        }))
+    }
+    
     if (user && Business) {
         // To update the balance of the business with the amount the user bought with ATM card
          await BusinessModels.findByIdAndUpdate(
