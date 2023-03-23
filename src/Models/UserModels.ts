@@ -43,6 +43,10 @@ const UserSchema: Schema<UserDetails> = new Schema({
         enum: ["User", "Business"],
         default: "User"
     },
+    TransactionHistory: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Histories"
+    }],
     companyGiftCards:[
         {
             type: mongoose.Schema.Types.ObjectId,

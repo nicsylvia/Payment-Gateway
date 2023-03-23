@@ -7,6 +7,7 @@ export interface UserDetails {
     password: string;
     confirmPassword: string;
     status: string;
+    TransactionHistory: {}[],
     companyGiftCards: {}[];
     PurchasedGiftCards: {}[];
   }
@@ -21,6 +22,7 @@ export interface UserDetails {
     confirmPassword: string;
     BusinessCode: string;
     status: string;
+    TransactionHistory: {}[],
     giftCard: {}[];
   }
 

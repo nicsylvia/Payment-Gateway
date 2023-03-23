@@ -51,7 +51,11 @@ const BusinessSchema: Schema<BusinessDetails> = new Schema({
     giftCard: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "GiftCards"
-    }]
+    }],
+    TransactionHistory: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Histories"
+    }],
 },
 {
     timestamps: true
