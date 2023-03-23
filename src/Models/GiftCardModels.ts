@@ -26,6 +26,6 @@ const GiftCardSchema: Schema<GiftCardDetails> = new Schema({
 
 
 
-const GiftCardModels = model<GiftCardDetails>("Gift Cards", GiftCardSchema);
+const GiftCardModels = model<GiftCardDetails>("GiftCards", GiftCardSchema);
 
 export default GiftCardModels;
