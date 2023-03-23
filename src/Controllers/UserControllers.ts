@@ -4,6 +4,7 @@ import { AsyncHandler } from "../Utils/AsyncHandler";
 import Cloud from "../Config/cloudinary";
 import bcrypt from "bcrypt"
 import { AppError, HTTPCODES } from "../Utils/AppError";
+import BusinessModels from "../Models/BusinessModels";
 
 // Users Registration:
 export const UsersRegistration = AsyncHandler(async(
@@ -98,3 +99,22 @@ export const GetSingleUser = AsyncHandler(async(
 });
 
 // User wants to buy a business gift card:
+export const UserBuyAGiftCard = AsyncHandler(async(
+    req: Request,
+    res: Response,
+    next: NextFunction
+) =>{
+    const user = await UserModels.findById(req.params.userID);
+    const Business = await BusinessModels.findById(req.params.businessID);
+
+    if (!user && !Business) {
+        next(new AppError({
+            message: "Invalid Account",
+            httpcode: HTTPCODES.NOT_FOUND
+        }))
+    }
+
+    if (user && Business) {
+        
+    }
+})
