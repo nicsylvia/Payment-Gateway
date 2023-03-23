@@ -111,7 +111,6 @@ export const UpdateBusinessLogo = AsyncHandler(async(
     // const { logo } = req.body;
 
     const CloudImg = await cloud.uploader?.upload(req?.file!.path);
-    console.log(CloudImg)
 
     const BusinessLogo = await BusinessModels.findByIdAndUpdate(
         req.params.id,

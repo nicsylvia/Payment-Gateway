@@ -7,7 +7,8 @@ import isEmail from "validator/lib/isEmail";
 const BusinessSchema: Schema<BusinessDetails> = new Schema({
     name: {
         type: String,
-        required: [true, "Please enter your name"]
+        required: [true, "Please enter your name"],
+        unique: true
     },
     email: {
         type: String,

@@ -1,8 +1,5 @@
-// import {v2 as cloudinary} from "cloudinary"; 
-import Cloud,{v2} from "cloudinary"
+import Cloud, {v2} from "cloudinary"
 const cloudinary: typeof v2 = Cloud.v2
-
-
 
  cloudinary.config({
     cloud_name: "dev-sylvia",

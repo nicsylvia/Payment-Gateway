@@ -27,5 +27,6 @@ export interface UserDetails {
     name: string;
     BrandLogo: string;
     uniqueID: string;
+    colour: string;
     moneyWorth: number;
   }
