@@ -8,7 +8,7 @@ export interface UserDetails {
     confirmPassword: string;
     status: string;
     TransactionHistory: {}[],
-    companyGiftCards: {}[];
+    // companyGiftCards: {}[];
     PurchasedGiftCards: {}[];
   }
   
@@ -16,7 +16,7 @@ export interface UserDetails {
     name: string;
     email: string;
     logo: string;
-    MoneyBalance: string;
+    Balance: string;
     phoneNumber: number;
     password: string;
     confirmPassword: string;

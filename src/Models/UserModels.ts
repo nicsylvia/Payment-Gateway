@@ -47,12 +47,12 @@ const UserSchema: Schema<UserDetails> = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Histories"
     }],
-    companyGiftCards:[
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "GiftCards"
-        }
-    ],
+    // companyGiftCards:[
+    //     {
+    //         type: mongoose.Schema.Types.ObjectId,
+    //         ref: "GiftCards"
+    //     }
+    // ],
     PurchasedGiftCards: [
         {
             type: mongoose.Schema.Types.ObjectId,

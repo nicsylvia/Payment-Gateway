@@ -33,7 +33,7 @@ const BusinessSchema: Schema<BusinessDetails> = new Schema({
         type: String,
         unique: true,
     },
-    MoneyBalance: {
+    Balance: {
         type: String,
     },
     phoneNumber:{

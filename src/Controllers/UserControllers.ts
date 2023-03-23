@@ -130,7 +130,7 @@ export const UserBuyAGiftCard = AsyncHandler(async(
             httpcode: HTTPCODES.NOT_FOUND
         }))
     }
-    
+   
     if (user && Business) {
         // To update the balance of the business with the amount the user bought with ATM card
          await BusinessModels.findByIdAndUpdate(
