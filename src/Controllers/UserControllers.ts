@@ -5,6 +5,9 @@ import Cloud from "../Config/cloudinary";
 import bcrypt from "bcrypt"
 import { AppError, HTTPCODES } from "../Utils/AppError";
 import BusinessModels from "../Models/BusinessModels";
+import HistoryModels from "../Models/HistoryModels";
+import { uuid } from "uuidv4";
+import mongoose from "mongoose";
 
 // Users Registration:
 export const UsersRegistration = AsyncHandler(async(
@@ -104,6 +107,12 @@ export const UserBuyAGiftCard = AsyncHandler(async(
     res: Response,
     next: NextFunction
 ) =>{
+
+    const { amount } = req.body;
+
+    const GenerateTransactionReference = uuid();
+
+    // To get both single user and business
     const user = await UserModels.findById(req.params.userID);
     const Business = await BusinessModels.findById(req.params.businessID);
 
@@ -115,6 +124,30 @@ export const UserBuyAGiftCard = AsyncHandler(async(
     }
 
     if (user && Business) {
+        // To update the balance of the business with the amount the user bought with ATM card
+         await BusinessModels.findByIdAndUpdate(
+            req.params.businessID,
+            {
+                MoneyBalance: Business?.MoneyBalance + amount,
+            }
+        )
+        // To generate a receipt for the business and a notification
+        const BusinesstransactionHistory = await HistoryModels.create({
+            message: `${user?.name} bought a gift card from your store with money worth of ${amount}`,
+            transactionReference: GenerateTransactionReference,
+            transactionType: "Credit"
+        });
+
+        Business?.TransactionHistory?.push(new mongoose.Types.ObjectId(BusinesstransactionHistory?._id));
+        Business.save()
         
+        const UserTransactionHistory = await HistoryModels.create({
+            message: `You bought a gift card worth ${amount} from ${Business?.name}`,
+            transactionReference: GenerateTransactionReference,
+            transactionType: "Debit"
+        });
+
+        user?.TransactionHistory?.push(new mongoose.Types.ObjectId(UserTransactionHistory?._id));
+        user.save();
     }
 })
