@@ -128,8 +128,8 @@ export const GetSingleUser = AsyncHandler(
   }
 );
 
-// User wants to buy a business gift card:
-export const UserBuyAGiftCard = AsyncHandler(
+// User wants to buy a business gift card using Kora's API:
+export const UserBuyAGiftCardWithKoraAPIs = AsyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     const { amount, title } = req.body;
 
@@ -160,6 +160,30 @@ export const UserBuyAGiftCard = AsyncHandler(
     }
 
     if (user && Business) {
+      // For user to make the payment from their bank to business wallet:
+      const data = {
+        amount: `${amount}`,
+        redirect_url: "https://codelab-student.web.app",
+        currency: "NGN",
+        reference: `${GenerateTransactionReference}`,
+        narration: "Fix Test Webhook",
+        channels: ["card"],
+        default_channel: "card",
+        customer: {
+          name: `${user?.name}`,
+          email: `${user?.email}@gmail.com`,
+        },
+        notification_url:
+          "https://webhook.site/8d321d8d-397f-4bab-bf4d-7e9ae3afbd50",
+        metadata: {
+          key0: "test0",
+          key1: "test1",
+          key2: "test2",
+          key3: "test3",
+          key4: "test4",
+        },
+      };
+
       // To update the balance of the business with the amount the user bought with ATM card
       await BusinessModels.findByIdAndUpdate(req.params.businessID, {
         MoneyBalance: Business?.Balance + amount,
@@ -189,3 +213,5 @@ export const UserBuyAGiftCard = AsyncHandler(
     }
   }
 );
+
+// User wants to buy a business gift card using paying with their card:
