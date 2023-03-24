@@ -1,4 +1,4 @@
-import { ___Request, Response } from "express";
+import { Request, Response } from "express";
 import axios from "axios";
 import mongoose from "mongoose";
 import cardModel from "../Models/cardModel";
@@ -63,6 +63,7 @@ export const getOneUser = AsyncHandler(async (req: Request, res: Response) => {
   }
 });
 
+// will need:
 export const createPay = AsyncHandler(async (req: Request, res: Response) => {
   try {
     const { amount, title, description } = req.body;
@@ -157,6 +158,7 @@ function encryptAES256(encryptionKey: string, paymentData: any) {
   return `${ivToHex}:${encryptedToHex}:${cipher.getAuthTag().toString("hex")}`;
 }
 
+// will need
 export const checkOutwithCard = async (req: Request, res: Response) => {
   try {
     const { amount, title, description } = req.body;
@@ -331,6 +333,7 @@ export const checkPayment = async (req: Request, res: Response) => {
   }
 };
 
+// will need:
 export const checkOutToBank = async (req: Request, res: Response) => {
   try {
     const {
