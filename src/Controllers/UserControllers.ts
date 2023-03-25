@@ -10,6 +10,7 @@ import { uuid } from "uuidv4";
 import mongoose from "mongoose";
 import GiftCardModels from "../Models/GiftCardModels";
 import crypto from "crypto";
+import axios from "axios";
 
 // My secret key from Kora dashboard
 const secret = "sk_test_MHgGti4ajFmKnSMgymPeGH4p1hBNwJxSAWxZQwVr";
@@ -128,10 +129,20 @@ export const GetSingleUser = AsyncHandler(
   }
 );
 
-// User wants to buy a business gift card using Kora's API:
-export const UserBuyAGiftCardWithKoraAPIs = AsyncHandler(
+// User wants to buy a business gift card using Kora's APIs to make Payment with ATM card - // User wants to buy a business gift card using payment with their card:
+export const UserBuyAGiftCardWithATMcard = AsyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
-    const { amount, title } = req.body;
+    const {
+      amount,
+      name,
+      number,
+      cvv,
+      pin,
+      expiry_year,
+      expiry_month,
+      title,
+      description,
+    } = req.body;
 
     const GenerateTransactionReference = uuid();
 
@@ -161,26 +172,45 @@ export const UserBuyAGiftCardWithKoraAPIs = AsyncHandler(
 
     if (user && Business) {
       // For user to make the payment from their bank to business wallet:
-      const data = {
-        amount: `${amount}`,
-        redirect_url: "https://codelab-student.web.app",
-        currency: "NGN",
-        reference: `${GenerateTransactionReference}`,
-        narration: "Fix Test Webhook",
-        channels: ["card"],
-        default_channel: "card",
-        customer: {
-          name: `${user?.name}`,
-          email: `${user?.email}@gmail.com`,
+      const paymentData = {
+        reference: GenerateTransactionReference,
+        card: {
+          name,
+          number,
+          cvv,
+          pin,
+          expiry_year,
+          expiry_month,
         },
-        notification_url:
-          "https://webhook.site/8d321d8d-397f-4bab-bf4d-7e9ae3afbd50",
+        amount,
+        currency: "NGN",
+        redirect_url: "https://merchant-redirect-url.com",
+        customer: {
+          name: user?.name,
+          email: user?.email,
+        },
         metadata: {
-          key0: "test0",
-          key1: "test1",
-          key2: "test2",
-          key3: "test3",
-          key4: "test4",
+          internalRef: "JD-12-67",
+          age: 15,
+          fixed: true,
+        },
+      };
+
+      // To stringify the payment data coming in
+      const stringData = JSON.stringify(paymentData);
+      //The data should be in buffer form according to Kora's pay
+      const bufData = Buffer.from(stringData, "utf-8");
+      const encryptedData = encryptAES256(encrypt, bufData);
+
+      var config = {
+        method: "post",
+        maxBodyLength: Infinity,
+        url: urlData,
+        headers: {
+          Authorization: `Bearer ${secret}`,
+        },
+        data: {
+          charge_data: `${encryptedData}`,
         },
       };
 
@@ -213,5 +243,3 @@ export const UserBuyAGiftCardWithKoraAPIs = AsyncHandler(
     }
   }
 );
-
-// User wants to buy a business gift card using paying with their card:
