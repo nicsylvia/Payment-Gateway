@@ -214,32 +214,52 @@ export const UserBuyAGiftCardWithATMcard = AsyncHandler(
         },
       };
 
-      // To update the balance of the business with the amount the user bought with ATM card
-      await BusinessModels.findByIdAndUpdate(req.params.businessID, {
-        MoneyBalance: Business?.Balance + amount,
-      });
-      // To generate a receipt for the business and a notification
-      const BusinesstransactionHistory = await HistoryModels.create({
-        message: `${user?.name} bought a gift card from your store with money worth of ${amount}`,
-        transactionReference: GenerateTransactionReference,
-        transactionType: "Credit",
-      });
+      axios(config)
+        .then(async function (response) {
+          // To update the balance of the business with the amount the user bought with ATM card
+          await BusinessModels.findByIdAndUpdate(req.params.businessID, {
+            MoneyBalance: Business?.Balance + amount,
+          });
+          // To generate a receipt for the business and a notification
+          const BusinesstransactionHistory = await HistoryModels.create({
+            message: `${user?.name} bought a gift card from your store with money worth of ${amount}`,
+            transactionReference: GenerateTransactionReference,
+            transactionType: "Credit",
+          });
 
-      Business?.TransactionHistory?.push(
-        new mongoose.Types.ObjectId(BusinesstransactionHistory?._id)
-      );
-      Business.save();
+          Business?.TransactionHistory?.push(
+            new mongoose.Types.ObjectId(BusinesstransactionHistory?._id)
+          );
+          Business.save();
 
-      const UserTransactionHistory = await HistoryModels.create({
-        message: `You bought a gift card worth ${amount} from ${Business?.name}`,
-        transactionReference: GenerateTransactionReference,
-        transactionType: "Debit",
-      });
+          // To update the history of the user with his/her debit alert of buying a gift card
+          const UserTransactionHistory = await HistoryModels.create({
+            message: `You bought a gift card worth ${amount} from ${Business?.name}`,
+            transactionReference: GenerateTransactionReference,
+            transactionType: "Debit",
+          });
 
-      user?.TransactionHistory?.push(
-        new mongoose.Types.ObjectId(UserTransactionHistory?._id)
-      );
-      user.save();
+          user?.TransactionHistory?.push(
+            new mongoose.Types.ObjectId(UserTransactionHistory?._id)
+          );
+          user.save();
+
+          return res.status(HTTPCODES.OK).json({
+            message: "success",
+            data: {
+              paymentInfo: UserTransactionHistory,
+              paymentData: JSON.parse(JSON.stringify(response.data)),
+            },
+          });
+        })
+        .catch(function (error) {
+          next(
+            new AppError({
+              message: "Transaction failed",
+              httpcode: HTTPCODES.BAD_GATEWAY,
+            })
+          );
+        });
     }
   }
 );

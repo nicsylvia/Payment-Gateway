@@ -1,12 +1,18 @@
 import express from "express";
-import { GetSingleUser, UserBuyAGiftCard, UsersLogin, UsersRegistration } from "../Controllers/UserControllers";
+import {
+  GetSingleUser,
+  UserBuyAGiftCardWithATMcard,
+  UsersLogin,
+  UsersRegistration,
+} from "../Controllers/UserControllers";
 
 const UserRouter = express.Router();
 
-UserRouter.route("/registeruser").post(UsersRegistration)
-UserRouter.route("/loginuser").post(UsersLogin)
-UserRouter.route("/getsingleuser/:userID").get(GetSingleUser)
-UserRouter.route("/buyagiftcard/:userID/:businessID").post(UserBuyAGiftCard)
-
+UserRouter.route("/registeruser").post(UsersRegistration);
+UserRouter.route("/loginuser").post(UsersLogin);
+UserRouter.route("/getsingleuser/:userID").get(GetSingleUser);
+UserRouter.route("/buyagiftcard/:userID/:businessID").post(
+  UserBuyAGiftCardWithATMcard
+);
 
 export default UserRouter;
