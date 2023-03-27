@@ -113,6 +113,36 @@ export const GetSingleBusinessAcount = AsyncHandler(
   }
 );
 
+// Get single Business Account:
+export const GetSingleBusinessCards = AsyncHandler(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const SingleBusiness = await BusinessModels.findById(req.params.businessID);
+
+    if (!SingleBusiness) {
+      next(
+        new AppError({
+          message: "Business Account not found",
+          httpcode: HTTPCODES.NOT_FOUND,
+        })
+      );
+    }
+
+    const cards = await BusinessModels.findById(req.params.businessID).populate(
+      {
+        path: "giftCard",
+        options: {
+          sort: { createdAt: -1 },
+        },
+      }
+    );
+
+    return res.status(200).json({
+      message: "Successfully got this business account",
+      data: cards!.giftCard,
+    });
+  }
+);
+
 // Update Business Details:
 export const UpdateBusinessLogo = AsyncHandler(
   async (req: any, res: Response, next: NextFunction) => {
