@@ -170,7 +170,7 @@ export const UserBuyAGiftCardWithATMcard = AsyncHandler(
       );
     }
 
-    if (user && Business) {
+    if (user && Business && giftcard) {
       // For user to make the payment from their bank to business wallet:
       const paymentData = {
         reference: GenerateTransactionReference,
