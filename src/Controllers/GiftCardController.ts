@@ -107,3 +107,25 @@ export const BusinessGiftCard = AsyncHandler(
     }
   }
 );
+
+// Search for a gift card by amount and name:
+export const SearchForGiftCard = AsyncHandler(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const giftcard = await GiftCardModels.findOne(req.query);
+
+    if (!giftcard) {
+      next(
+        new AppError({
+          message: "Gift card does not exist",
+          httpcode: HTTPCODES.NOT_FOUND,
+          name: "Unavailable",
+        })
+      );
+    }
+
+    return res.status(200).json({
+      message: `Successfully got the searched gift card`,
+      data: giftcard,
+    });
+  }
+);
