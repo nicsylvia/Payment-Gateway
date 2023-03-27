@@ -5,6 +5,7 @@ import { AppError, HTTPCODES } from "../Utils/AppError";
 import GiftCardModels from "../Models/GiftCardModels";
 import BusinessModels from "../Models/BusinessModels";
 import mongoose from "mongoose";
+import UserModels from "../Models/UserModels";
 
 // Create a gift card:
 export const GenerateAGiftCard = AsyncHandler(
@@ -12,6 +13,8 @@ export const GenerateAGiftCard = AsyncHandler(
     const { moneyWorth, colour } = req.body;
 
     const GetBusiness = await BusinessModels.findById(req.params.businessID);
+
+    const ALLUSER = await UserModels.findById(req.params.userID);
 
     if (!GetBusiness) {
       next(
@@ -40,6 +43,11 @@ export const GenerateAGiftCard = AsyncHandler(
         colour,
         moneyWorth,
       });
+
+      await ALLUSER?.companyGiftCards.push(
+        new mongoose.Types.ObjectId(GiftCard?._id)
+      );
+      await ALLUSER?.save();
 
       await GetBusiness?.giftCard?.push(
         new mongoose.Types.ObjectId(GiftCard?._id)
@@ -87,8 +95,7 @@ export const BusinessGiftCard = AsyncHandler(
     if (!Business) {
       next(
         new AppError({
-          message:
-            "This business does not exist, \n Sign up to create an account \n Couldn't get this business gift cards",
+          message: `This business does not exist, \n Sign up to create an account \n Couldn't get this business gift cards`,
           httpcode: HTTPCODES.NOT_FOUND,
         })
       );

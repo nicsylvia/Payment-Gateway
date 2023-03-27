@@ -111,7 +111,9 @@ export const UsersLogin = AsyncHandler(
 // Get a single User:
 export const GetSingleUser = AsyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
-    const singleuser = await UserModels.findById(req.params.userID);
+    const singleuser = await UserModels.findById(req.params.userID).populate({
+      path: "companyGiftCards",
+    });
 
     if (!singleuser) {
       next(
