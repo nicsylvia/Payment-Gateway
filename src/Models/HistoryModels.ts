@@ -2,22 +2,22 @@ import { Schema, model } from "mongoose";
 
 import { HistoryDetails } from "../AllInterfaces/Interfaces";
 
-const HistorySchema: Schema<HistoryDetails> = new Schema({
+const HistorySchema: Schema<HistoryDetails> = new Schema(
+  {
     message: {
-        type: String,
+      type: String,
     },
     transactionReference: {
-        type: Number,
+      type: String,
     },
     transactionType: {
-        type: String
-    }
-},
-{
-    timestamps: true
-});
-
-
+      type: String,
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
 
 const HistoryModels = model<HistoryDetails>("Histories", HistorySchema);
 

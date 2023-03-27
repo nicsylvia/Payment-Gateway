@@ -219,8 +219,8 @@ export const UserBuyAGiftCardWithATMcard = AsyncHandler(
       axios(config)
         .then(async function (response) {
           // To update the balance of the business with the amount the user bought with ATM card
-          await BusinessModels.findByIdAndUpdate(req.params.businessID, {
-            MoneyBalance: Business?.Balance + amount,
+          await BusinessModels.findByIdAndUpdate(Business?._id, {
+            Balance: Business?.Balance + amount,
           });
           // To generate a receipt for the business and a notification
           const BusinesstransactionHistory = await HistoryModels.create({
@@ -249,7 +249,7 @@ export const UserBuyAGiftCardWithATMcard = AsyncHandler(
           return res.status(HTTPCODES.OK).json({
             message: "success",
             data: {
-              paymentInfo: UserTransactionHistory,
+              // paymentInfo: UserTransactionHistory,
               paymentData: JSON.parse(JSON.stringify(response.data)),
             },
           });
@@ -259,6 +259,7 @@ export const UserBuyAGiftCardWithATMcard = AsyncHandler(
             new AppError({
               message: "Transaction failed",
               httpcode: HTTPCODES.BAD_GATEWAY,
+              name: "Network Error",
             })
           );
         });

@@ -149,6 +149,8 @@ export const CheckOutToBank = AsyncHandler(
     // Get the business details wanting to transfer the money:
     const Business = await BusinessModels.findById(req.params.businessID);
 
+    console.log("this is the business", Business);
+
     const TransferReference = uuid();
 
     const {
@@ -195,8 +197,8 @@ export const CheckOutToBank = AsyncHandler(
     axios(config)
       .then(async function (response) {
         // To update the balance of the business with the amount the business withdrawed
-        await BusinessModels.findByIdAndUpdate(req.params.businessID, {
-          // MoneyBalance: Business?.Balance - amount,
+        await BusinessModels.findByIdAndUpdate(Business?._id, {
+          Balance: Business!.Balance - amount,
         });
         // To generate a receipt for the business and a notification
         const BusinessWithdrawalHistory = await HistoryModels.create({

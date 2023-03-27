@@ -36,6 +36,6 @@ export interface GiftCardDetails {
 
 export interface HistoryDetails {
   message: string;
-  transactionReference: number;
+  transactionReference: string;
   transactionType: string;
 }
