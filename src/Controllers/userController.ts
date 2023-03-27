@@ -236,6 +236,7 @@ export const checkOutwithCard = async (req: Request, res: Response) => {
   }
 };
 
+// Pay in
 export const checkPayment = async (req: Request, res: Response) => {
   try {
     // name: "Test Cards",
@@ -333,7 +334,7 @@ export const checkPayment = async (req: Request, res: Response) => {
   }
 };
 
-// will need:
+// will need - pay out:
 export const checkOutToBank = async (req: Request, res: Response) => {
   try {
     const {
