@@ -16,7 +16,7 @@ export interface BusinessDetails {
   name: string;
   email: string;
   logo: string;
-  Balance: string;
+  Balance: number;
   phoneNumber: number;
   password: string;
   confirmPassword: string;

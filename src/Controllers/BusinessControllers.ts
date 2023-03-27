@@ -45,6 +45,7 @@ export const BusinessRegistration = AsyncHandler(
           digits: true,
           lowerCaseAlphabets: false,
         }),
+      Balance: 0,
       status: "Business",
     });
 

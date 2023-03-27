@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const LIVE_URL =
   "mongodb+srv://sylviaDB:devsylvia@cluster0.fhx2vt1.mongodb.net/GiftCardHack?retryWrites=true&w=majority";
 
-const db_Url = "mongodb://localhost/GiftCardHackDB";
+const db_Url = "mongodb://localhost/GiftCardHack";
 
 export const DBCONNECTION = async () => {
   try {
