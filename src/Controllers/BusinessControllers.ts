@@ -39,7 +39,7 @@ export const BusinessRegistration = AsyncHandler(
       confirmPassword: hashedPassword,
       BusinessCode:
         codename +
-        otpgenerator.generate(10, {
+        otpgenerator.generate(20, {
           upperCaseAlphabets: false,
           specialChars: false,
           digits: true,
