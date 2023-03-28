@@ -2,29 +2,32 @@ import { Schema, model } from "mongoose";
 
 import { GiftCardDetails } from "../AllInterfaces/Interfaces";
 
-const GiftCardSchema: Schema<GiftCardDetails> = new Schema({
+const GiftCardSchema: Schema<GiftCardDetails> = new Schema(
+  {
     name: {
-        type: String,
+      type: String,
     },
     BrandLogo: {
-        type: String,
+      type: String,
     },
     uniqueID: {
-        type: String,
+      type: String,
     },
     colour: {
-        type: String,
+      type: String,
+    },
+    dateTime: {
+      type: String,
     },
     moneyWorth: {
-        type: Number,
-        required: [true, "Please enter the money worth of card"]
-    }
-},
-{
-    timestamps: true
-});
-
-
+      type: Number,
+      required: [true, "Please enter the money worth of card"],
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
 
 const GiftCardModels = model<GiftCardDetails>("GiftCards", GiftCardSchema);
 

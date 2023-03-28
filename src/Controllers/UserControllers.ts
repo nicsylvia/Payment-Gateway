@@ -224,6 +224,7 @@ export const UserBuyAGiftCardWithATMcard = AsyncHandler(
           });
           // To generate a receipt for the business and a notification
           const BusinesstransactionHistory = await HistoryModels.create({
+            owner: Business?.name,
             message: `${user?.name} bought a gift card from your store with money worth of ${amount}`,
             transactionReference: GenerateTransactionReference,
             transactionType: "Credit",
@@ -236,6 +237,7 @@ export const UserBuyAGiftCardWithATMcard = AsyncHandler(
 
           // To update the history of the user with his/her debit alert of buying a gift card
           const UserTransactionHistory = await HistoryModels.create({
+            owner: user?.name,
             message: `You bought a gift card worth ${amount} from ${Business?.name}`,
             transactionReference: GenerateTransactionReference,
             transactionType: "Debit",
@@ -247,9 +249,9 @@ export const UserBuyAGiftCardWithATMcard = AsyncHandler(
           user.save();
 
           return res.status(HTTPCODES.OK).json({
-            message: "success",
+            message: `${user?.name} successfully made payments for ${Business?.name} gift cards`,
             data: {
-              // paymentInfo: UserTransactionHistory,
+              paymentInfo: UserTransactionHistory,
               paymentData: JSON.parse(JSON.stringify(response.data)),
             },
           });

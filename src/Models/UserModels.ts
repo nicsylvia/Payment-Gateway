@@ -36,6 +36,9 @@ const UserSchema: Schema<UserDetails> = new Schema(
       type: String,
       required: [true, "Please confirm your password"],
     },
+    dateTime: {
+      type: String,
+    },
     status: {
       type: String,
       required: [true, "Please enter your status"],

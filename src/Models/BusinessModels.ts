@@ -41,6 +41,9 @@ const BusinessSchema: Schema<BusinessDetails> = new Schema(
       type: Number,
       unique: true,
     },
+    dateTime: {
+      type: String,
+    },
     status: {
       type: String,
       required: [true, "Please enter your status"],

@@ -10,6 +10,7 @@ export interface UserDetails {
   TransactionHistory: {}[];
   companyGiftCards: {}[];
   PurchasedGiftCards: {}[];
+  dateTime: string;
 }
 
 export interface BusinessDetails {
@@ -24,6 +25,7 @@ export interface BusinessDetails {
   status: string;
   TransactionHistory: {}[];
   giftCard: {}[];
+  dateTime: string;
 }
 
 export interface GiftCardDetails {
@@ -32,10 +34,13 @@ export interface GiftCardDetails {
   uniqueID: string;
   colour: string;
   moneyWorth: number;
+  dateTime: string;
 }
 
 export interface HistoryDetails {
+  owner: string;
   message: string;
   transactionReference: string;
   transactionType: string;
+  dateTime: string;
 }

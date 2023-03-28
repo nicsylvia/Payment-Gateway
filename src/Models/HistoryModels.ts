@@ -4,6 +4,9 @@ import { HistoryDetails } from "../AllInterfaces/Interfaces";
 
 const HistorySchema: Schema<HistoryDetails> = new Schema(
   {
+    owner: {
+      type: String,
+    },
     message: {
       type: String,
     },
@@ -11,6 +14,9 @@ const HistorySchema: Schema<HistoryDetails> = new Schema(
       type: String,
     },
     transactionType: {
+      type: String,
+    },
+    dateTime: {
       type: String,
     },
   },
